@@ -31,5 +31,18 @@ int main(){
             outFile.close();
             break;
         }
+        
+        cout << "Ingrese el mensaje a registrar: ";
+        cin >> msj;
+
+        tipo = tipos[num - 1];
+
+        logMessage(msj, tipo);
     }
+}
+
+void logMessage(string msj, string tipo){
+    ofstream outFile("log.txt", ios::app);
+    outFile << "[" << tipo << "] <" << msj << "> " << endl;
+    outFile.close();
 }
