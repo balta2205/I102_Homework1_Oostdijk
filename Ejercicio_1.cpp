@@ -22,6 +22,14 @@ int main(){
             m++;
         }
     }
+
+    int* puntero = &matriz[0][0] + (n*n - 1);
+    int contador = n*n - 1;
+
+    for(; puntero >= &matriz[0][0]; puntero--){
+        cout << "Matriz[" << contador/n << "][" << contador%n << "] = " << *puntero << endl;
+        contador--;
+    }
     
     return 0;
 }
