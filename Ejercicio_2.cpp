@@ -27,5 +27,9 @@ int main(){
             cin >> num;
         }while(num < 1 || num > 6);
         
+        if(num == 6){
+            outFile.close();
+            break;
+        }
     }
 }
