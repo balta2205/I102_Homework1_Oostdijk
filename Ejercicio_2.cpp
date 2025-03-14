@@ -16,6 +16,7 @@ int main(){
 
     while (true){
         do{
+            num = 0;
             cout << "Ingrese la severidad/importancia del mensaje:" << endl;
             cout << "[1] DEBUG." << endl;
             cout << "[2] INFO." << endl;
@@ -33,11 +34,13 @@ int main(){
         }
         
         cout << "Ingrese el mensaje a registrar: ";
-        cin >> msj;
+        cin.ignore(); 
+        getline(cin, msj);
 
         tipo = tipos[num - 1];
 
         logMessage(msj, tipo);
+        num = 0;
     }
 }
 
