@@ -1,9 +1,10 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <ctime>	
 using namespace std;
 
-void logMessage(string msj, string tipo);
+void logMessage(ofstream& logFile, const string& msj, const string& tipo);
 
 int main(){
 
@@ -12,7 +13,12 @@ int main(){
     string msj;
     string tipo;
 
-    ofstream outFile("log.txt");
+    ofstream outFile("log.txt", ios::app);
+
+    if (!outFile) {
+        cerr << "Error: No se pudo abrir el archivo de log." << std::endl;
+        return 1;
+    }
 
     while (true){
         do{
@@ -39,13 +45,21 @@ int main(){
 
         tipo = tipos[num - 1];
 
-        logMessage(msj, tipo);
+        logMessage(outFile, msj, tipo);
         num = 0;
     }
 }
 
-void logMessage(string msj, string tipo){
-    ofstream outFile("log.txt", ios::app);
-    outFile << "[" << tipo << "] <" << msj << "> " << endl;
-    outFile.close();
+void logMessage(ofstream& logFile, const string& msj, const string& tipo) {
+    if (!logFile) {
+        cerr << "Error: No se pudo abrir el archivo de log." << endl;
+        return;
+    }
+
+    time_t t = std::time(nullptr);
+    char buffer[20];
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d %H:%M:%S", localtime(&t));
+
+    // Escribir en el archivo
+    logFile << "[" << buffer << "] [" << tipo << "] <" << msj << "> " << endl;
 }
