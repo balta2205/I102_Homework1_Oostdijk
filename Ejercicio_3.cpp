@@ -63,7 +63,8 @@ void insert(shared_ptr<List> list, shared_ptr<Node> node, int position) {
 }
 
 void erase(shared_ptr<List> list, int position) {
-    if (!list->head) cout << "La lista está vacía, no se puede eliminar un nodo." << endl; return;
+    if (!list->head) cout << "La lista está vacía, no se puede eliminar un nodo." << endl; 
+    return;
     
     if (position >= list->size) position = list->size - 1;
 
