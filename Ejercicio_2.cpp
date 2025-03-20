@@ -55,6 +55,7 @@ int main() {
             }
             msj = op[num_2 - 1];
             cout << "Ingrese el nombre de usuario: ";
+            cin.ignore();
             getline(cin, nombre_usuario);
             logMessage(outFile, msj, "SECURITY", nombre_usuario);
         } 
@@ -69,6 +70,7 @@ int main() {
                 string archivo;
                 int linea;
                 cout << "Ingrese el archivo donde ocurrió el error: ";
+                cin.ignore();
                 getline(cin, archivo);
                 cout << "Ingrese la línea de código donde ocurrió el error: ";
                 cin >> linea;
