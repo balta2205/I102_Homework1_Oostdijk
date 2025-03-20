@@ -50,10 +50,11 @@ void insert(shared_ptr<List> list, shared_ptr<Node> node, int position) {
     if (position == 0) {push_front(list, node); return;}
 
     if (position >= list->size || position < 0) {
-        cout << "La posición es invalida" << endl;
+        cout << "La posición es inválida. Se agregará al final de la lista." << endl;
         push_back(list, node);
         return;
     }
+    
 
     shared_ptr<Node> current = list->head;
     for (int i = 0; i < position - 1; i++) current = current->next;
@@ -63,8 +64,10 @@ void insert(shared_ptr<List> list, shared_ptr<Node> node, int position) {
 }
 
 void erase(shared_ptr<List> list, int position) {
-    if (!list->head) cout << "La lista está vacía, no se puede eliminar un nodo." << endl; 
-    return;
+    if (!list->head){ \
+        cout << "La lista está vacía, no se puede eliminar un nodo." << endl; 
+        return;
+    }
     
     if (position >= list->size) position = list->size - 1;
 
