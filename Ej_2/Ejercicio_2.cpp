@@ -3,7 +3,7 @@
 using namespace std;
 
 int main() {
-    string tipos[6] = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL", "SECURITY"};
+    string tipos[7] = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL", "SECURITY", "SIMULATED_ERROR"};
     int num;
     string msj;
     string tipo;
@@ -16,61 +16,70 @@ int main() {
         return 1;
     }
 
-    while (true) {
-        do {
-            num = 0;
-            cout << "Ingrese la severidad/importancia del mensaje:" << endl;
-            cout << "[1] DEBUG." << endl;
-            cout << "[2] INFO." << endl;
-            cout << "[3] WARNING." << endl;
-            cout << "[4] ERROR." << endl;
-            cout << "[5] CRITICAL." << endl;
-            cout << "[6] ACCESO DE USUARIO." << endl;
-            cout << "[7] FINALIZAR." << endl;
-            cout << endl;
-            cout << "Opcion: "; 
-            cin >> num;
-        } while (num < 1 || num > 7);
+    try {
+        while (true) {
+            do {
+                num = 0;
+                cout << "Ingrese la severidad/importancia del mensaje:" << endl;
+                cout << "[1] DEBUG." << endl;
+                cout << "[2] INFO." << endl;
+                cout << "[3] WARNING." << endl;
+                cout << "[4] ERROR." << endl;
+                cout << "[5] CRITICAL." << endl;
+                cout << "[6] ACCESO DE USUARIO." << endl;
+                cout << "[7] SIMULAR ERROR." << endl;
+                cout << "[8] FINALIZAR." << endl;
+                cout << endl;
+                cout << "Opcion: "; 
+                cin >> num;
+            } while (num < 1 || num > 8);
 
-        if (num == 7) {
-            outFile.close();
-            break;
-        }
-        if (num == 6) {
-            string op[2] = {"Access Granted", "Access Denied"};
-            int num_2;
-            cout << "Ingrese el mensaje de acceso (Access Granted [1] / Access Denied [2]): ";
-            cin >> num_2;
-            if(num_2 < 1 || num_2 > 2){
-                cout << "Opcion no valida." << endl;
-                continue;
+            if (num == 8) {
+                outFile.close();
+                break;
             }
-            msj = op[num_2 - 1];
-            cout << "Ingrese el nombre de usuario: ";
-            cin.ignore();
-            getline(cin, nombre_usuario);
-            logMessage(outFile, msj, "SECURITY", nombre_usuario);
-        } 
-        else {
-            cout << "Ingrese el mensaje a registrar: ";
-            cin.ignore(); 
-            getline(cin, msj);
-
-            tipo = tipos[num - 1];
-
-            if (num == 4) {
-                string archivo;
-                int linea;
-                cout << "Ingrese el archivo donde ocurrió el error: ";
+            if (num == 6) {
+                string op[2] = {"Access Granted", "Access Denied"};
+                int num_2;
+                cout << "Ingrese el mensaje de acceso (Access Granted [1] / Access Denied [2]): ";
+                cin >> num_2;
+                if (num_2 < 1 || num_2 > 2) {
+                    cout << "Opcion no valida." << endl;
+                    continue;
+                }
+                msj = op[num_2 - 1];
+                cout << "Ingrese el nombre de usuario: ";
                 cin.ignore();
-                getline(cin, archivo);
-                cout << "Ingrese la línea de código donde ocurrió el error: ";
-                cin >> linea;
-                logMessage(outFile, msj, tipo, archivo, linea);
-            } else {
-                logMessage(outFile, msj, tipo);
+                getline(cin, nombre_usuario);
+                logMessage(outFile, msj, "SECURITY", nombre_usuario);
+            } 
+            else if (num == 7) {
+                throw runtime_error("Error simulado para pruebas de captura de excepciones.");
+            }
+            else {
+                cout << "Ingrese el mensaje a registrar: ";
+                cin.ignore(); 
+                getline(cin, msj);
+
+                tipo = tipos[num - 1];
+
+                if (num == 4) {
+                    string archivo;
+                    int linea;
+                    cout << "Ingrese el archivo donde ocurrió el error: ";
+                    getline(cin, archivo);
+                    cout << "Ingrese la línea de código donde ocurrió el error: ";
+                    cin >> linea;
+                    logMessage(outFile, msj, tipo, archivo, linea);
+                } else {
+                    logMessage(outFile, msj, tipo);
+                }
             }
         }
+    } catch (const exception& e) {
+        logMessage(outFile, "Error en tiempo de ejecución: " + string(e.what()), "SIMULATED_ERROR");
+        cerr << "Ocurrió un error en tiempo de ejecución: " << e.what() << endl;
+        return 1;
     }
     return 0;
 }
