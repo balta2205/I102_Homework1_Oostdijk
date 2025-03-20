@@ -5,6 +5,18 @@
 
 using namespace std;
 
+/* Comparo dos textos de manera recusiva utilizando variables de tipo const char*, 
+   gracias a esto puedo iterar sobre los caracteres de los textos de manera recursiva.
+
+   De esta manera, itero sobre cada caracter de los dos textos, y me detengo en el caso en que, si un character es diferente,
+   retorno false, y si ambos caracteres son '\0' (fin de cadena), retorno true. si no se cumple ninguna de las condiciones anteriores,
+   llamo a la función recursiva con el siguiente índice.
+
+   Por otro lado, tambien se implementa una función recursiva en tiempo de compilación, la cual se resuelve durante la compilación.
+   En este caso, se utiliza la palabra clave constexpr, la cual indica que la función se evaluará en tiempo de compilación. 
+   Lo que reduce el tiempo de ejecución de la función, ya que se resuelve durante la compilación, y no en tiempo de ejecución.
+*/
+
 // Función recursiva en tiempo de ejecución
 bool compararRecursivo(const char* t1, const char* t2, int index) {
     if (t1[index] == '\0' && t2[index] == '\0') return true;
