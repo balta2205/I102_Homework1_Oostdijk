@@ -1,7 +1,4 @@
-#include <iostream>
-#include <fstream>
-#include <memory>
-#include <chrono>
+#include "Ejercicio_4.h"
 
 using namespace std;
 
@@ -16,20 +13,6 @@ using namespace std;
    En este caso, se utiliza la palabra clave constexpr, la cual indica que la función se evaluará en tiempo de compilación. 
    Lo que reduce el tiempo de ejecución de la función, ya que se resuelve durante la compilación, y no en tiempo de ejecución.
 */
-
-// Función recursiva en tiempo de ejecución
-bool compararRecursivo(const char* t1, const char* t2, int index) {
-    if (t1[index] == '\0' && t2[index] == '\0') return true;
-    if (t1[index] != t2[index]) return false;
-    return compararRecursivo(t1, t2, index + 1);
-}
-
-// Función recursiva en tiempo de compilación
-constexpr bool compararEnTiempoDeCompilacion(const char* t1, const char* t2, int index) {
-    return (t1[index] == '\0' && t2[index] == '\0') ? true : 
-           (t1[index] != t2[index]) ? false : 
-           compararEnTiempoDeCompilacion(t1, t2, index + 1);
-}
 
 int main() {
     constexpr const char* texto1 = "Este es un texto de prueba que tiene exactamente sesenta y cuatro.";
@@ -55,6 +38,20 @@ int main() {
     cout << "Tiempo de ejecución de compararEnTiempoDeCompilacion: " << elapsedTime2.count() << " nanosegundos" << endl;
 
     return 0;
+}
+
+// Función recursiva en tiempo de ejecución
+bool compararRecursivo(const char* t1, const char* t2, int index) {
+    if (t1[index] == '\0' && t2[index] == '\0') return true;
+    if (t1[index] != t2[index]) return false;
+    return compararRecursivo(t1, t2, index + 1);
+}
+
+// Función recursiva en tiempo de compilación
+constexpr bool compararEnTiempoDeCompilacion(const char* t1, const char* t2, int index) {
+    return (t1[index] == '\0' && t2[index] == '\0') ? true : 
+           (t1[index] != t2[index]) ? false : 
+           compararEnTiempoDeCompilacion(t1, t2, index + 1);
 }
 
 
