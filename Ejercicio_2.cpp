@@ -1,14 +1,6 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <ctime>    
-#include <stdexcept>  
+#include "Ejercicio_2.h"
 
 using namespace std;
-
-void logMessage(ofstream& logFile, const string& msj, const string& tipo);
-void logMessage(ofstream& logFile, const string& msj, const string& tipo, const string& archivo, int linea);
-void logMessage(ofstream& logFile, const string& msj, const string& tipo, const string& nombre_usuario);
 
 int main() {
     string tipos[6] = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL", "SECURITY"};
