@@ -1,6 +1,5 @@
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "Ejercicio_1.h"
+
 using namespace std;
 
 /* Se le pide al usuario un número entero positivo mayor a 1, con el cual se crea una matriz cuadrada de tamaño NxN.  
@@ -37,15 +36,18 @@ int main(){
         }
     }
 
-    // Se define un puntero que apunta a la última posición del arreglo subyacente en memoria.
-    int* puntero = &matriz[0][0] + (n*n - 1);
-    int contador = n*n - 1;
-
-    // Utilizando un único ciclo `for`, se recorre el arreglo en orden inverso (de la última posición a la primera), imprimiendo los valores junto con sus respectivos índices.
-    for(; puntero >= &matriz[0][0]; puntero--){
-        cout << "Matriz[" << contador/n << "][" << contador%n << "] = " << *puntero << endl;
-        contador--;
-    }
+    // Llamada a la función para imprimir la matriz en orden inverso
+    imprimirMatrizInversa(&matriz[0][0], n);
     
     return 0;
+}
+
+void imprimirMatrizInversa(int* matriz, int n) {
+    int* puntero = matriz + (n * n - 1); // Apunta al último elemento de la matriz
+    int contador = n * n - 1;
+
+    for (; puntero >= matriz; puntero--) {
+        cout << "Matriz[" << contador / n << "][" << contador % n << "] = " << *puntero << endl;
+        contador--;
+    }
 }
